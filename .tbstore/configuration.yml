@@ -1,0 +1,12 @@
+module_name: Product Payment Logos
+compatible_versions: 1.0.0+
+author: thirty bees
+category: front office
+tags:
+  - payment
+  - logo
+description_short: The Product Payment Logo module will allow you to display payment logos on your product page.
+description: description.md
+images:
+  - image-1.png
+license: AFL
