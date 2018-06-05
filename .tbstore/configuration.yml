@@ -9,4 +9,11 @@ description_short: The Product Payment Logo module will allow you to display pay
 description: description.md
 images:
   - image-1.png
+gdpr_compliant: false
 license: AFL
+php_version:
+  - 5.5
+  - 5.6
+  - 7.0
+  - 7.1
+  - 7.2
