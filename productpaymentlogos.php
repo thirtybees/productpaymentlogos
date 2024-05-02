@@ -82,13 +82,15 @@ class ProductPaymentLogos extends Module
     }
 
     /**
+     * @return string|null
+     *
      * @throws PrestaShopException
      * @throws SmartyException
      */
     public function hookDisplayProductButtons($params)
     {
         if (Configuration::get('PS_CATALOG_MODE')) {
-            return;
+            return null;
         }
 
         if (!$this->isCached('productpaymentlogos.tpl', $this->getCacheId())) {
@@ -131,7 +133,7 @@ class ProductPaymentLogos extends Module
         if (Tools::isSubmit('submitStoreConf')) {
             $uploadedFile = $_FILES['PRODUCTPAYMENTLOGOS_IMG'] ?? null;
 
-            if ($uploadedFile && isset($uploadedFile['tmp_name']) && !empty($uploadedFile['tmp_name'])) {
+            if ($uploadedFile && !empty($uploadedFile['tmp_name'])) {
                 $fileInfo = pathinfo($uploadedFile['name']);
                 $allowedExtensions = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
 
@@ -200,6 +202,8 @@ class ProductPaymentLogos extends Module
             ],
         ];
 
+        /** @var AdminController $controller */
+        $controller = $this->context->controller;
         $helper = new HelperForm();
         $helper->show_toolbar = false;
         $helper->table = $this->table;
@@ -212,7 +216,7 @@ class ProductPaymentLogos extends Module
         $helper->token = Tools::getAdminTokenLite('AdminModules');
         $helper->tpl_vars = [
             'fields_value' => $this->getConfigFieldsValues(),
-            'languages' => $this->context->controller->getLanguages(),
+            'languages' => $controller->getLanguages(),
             'id_language' => $this->context->language->id
         ];
 
