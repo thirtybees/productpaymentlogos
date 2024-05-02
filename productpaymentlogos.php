@@ -30,6 +30,9 @@ if (!defined('_TB_VERSION_')) {
 
 class ProductPaymentLogos extends Module
 {
+    /**
+     * @throws PrestaShopException
+     */
     public function __construct()
     {
         $this->name = 'productpaymentlogos';
@@ -48,6 +51,11 @@ class ProductPaymentLogos extends Module
         $this->ps_versions_compliancy = ['min' => '1.6', 'max' => '1.6.99.99'];
     }
 
+    /**
+     * @return bool
+     *
+     * @throws PrestaShopException
+     */
     public function install()
     {
         Configuration::updateValue('PRODUCTPAYMENTLOGOS_IMG', 'payment-logo.png');
@@ -59,6 +67,11 @@ class ProductPaymentLogos extends Module
         return parent::install() && $this->registerHook('displayProductButtons') && $this->registerHook('header');
     }
 
+    /**
+     * @return bool
+     *
+     * @throws PrestaShopException
+     */
     public function uninstall()
     {
         Configuration::deleteByName('PRODUCTPAYMENTLOGOS_IMG');
@@ -68,6 +81,10 @@ class ProductPaymentLogos extends Module
         return parent::uninstall();
     }
 
+    /**
+     * @throws PrestaShopException
+     * @throws SmartyException
+     */
     public function hookDisplayProductButtons($params)
     {
         if (Configuration::get('PS_CATALOG_MODE')) {
@@ -85,6 +102,9 @@ class ProductPaymentLogos extends Module
         return $this->display(__FILE__, 'productpaymentlogos.tpl', $this->getCacheId());
     }
 
+    /**
+     * @throws PrestaShopException
+     */
     public function hookHeader($params)
     {
         if (Configuration::get('PS_CATALOG_MODE')) {
@@ -94,11 +114,18 @@ class ProductPaymentLogos extends Module
         $this->context->controller->addCSS($this->_path . 'productpaymentlogos.css', 'all');
     }
 
+    /**
+     * @throws SmartyException
+     * @throws PrestaShopException
+     */
     public function getContent()
     {
         return $this->postProcess() . $this->renderForm();
     }
 
+    /**
+     * @throws PrestaShopException
+     */
     public function postProcess()
     {
         if (Tools::isSubmit('submitStoreConf')) {
@@ -135,6 +162,10 @@ class ProductPaymentLogos extends Module
         return '';
     }
 
+    /**
+     * @throws PrestaShopException
+     * @throws SmartyException
+     */
     public function renderForm()
     {
         $fieldsForm = [
@@ -188,6 +219,9 @@ class ProductPaymentLogos extends Module
         return $helper->generateForm([$fieldsForm]);
     }
 
+    /**
+     * @throws PrestaShopException
+     */
     public function getConfigFieldsValues()
     {
         return [
