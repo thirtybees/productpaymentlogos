@@ -45,7 +45,7 @@ class ProductPaymentLogos extends Module
         $this->description = $this->l('Displays the logos of the available payment systems on the product page.');
         $this->tb_versions_compliancy = '> 1.0.0';
         $this->tb_min_version = '1.0.0';
-        $this->ps_versions_compliancy = array('min' => '1.6', 'max' => '1.6.99.99');
+        $this->ps_versions_compliancy = ['min' => '1.6', 'max' => '1.6.99.99'];
     }
 
     public function install()
@@ -75,11 +75,11 @@ class ProductPaymentLogos extends Module
         }
 
         if (!$this->isCached('productpaymentlogos.tpl', $this->getCacheId())) {
-            $this->smarty->assign(array(
+            $this->smarty->assign([
                 'banner_img' => 'img/' . Configuration::get('PRODUCTPAYMENTLOGOS_IMG'),
                 'banner_link' => Configuration::get('PRODUCTPAYMENTLOGOS_LINK'),
                 'banner_title' => Configuration::get('PRODUCTPAYMENTLOGOS_TITLE')
-            ));
+            ]);
         }
 
         return $this->display(__FILE__, 'productpaymentlogos.tpl', $this->getCacheId());
@@ -137,37 +137,37 @@ class ProductPaymentLogos extends Module
 
     public function renderForm()
     {
-        $fieldsForm = array(
-            'form' => array(
-                'legend' => array(
+        $fieldsForm = [
+            'form' => [
+                'legend' => [
                     'title' => $this->l('Settings'),
                     'icon' => 'icon-cogs'
-                ),
-                'input' => array(
-                    array(
+                ],
+                'input' => [
+                    [
                         'type' => 'text',
                         'label' => $this->l('Block heading'),
                         'name' => 'PRODUCTPAYMENTLOGOS_TITLE',
                         'desc' => $this->l('You can choose to add a heading above the logos.')
-                    ),
-                    array(
+                    ],
+                    [
                         'type' => 'file',
                         'label' => $this->l('Block image'),
                         'name' => 'PRODUCTPAYMENTLOGOS_IMG',
                         'thumb' => '../modules/' . $this->name . '/img/' . Configuration::get('PRODUCTPAYMENTLOGOS_IMG'),
-                    ),
-                    array(
+                    ],
+                    [
                         'type' => 'text',
                         'label' => $this->l('Image link'),
                         'name' => 'PRODUCTPAYMENTLOGOS_LINK',
                         'desc' => $this->l('You can either upload your own image using the form above, or link to it from the "Image link" option.')
-                    )
-                ),
-                'submit' => array(
+                    ]
+                ],
+                'submit' => [
                     'title' => $this->l('Save'),
-                )
-            ),
-        );
+                ]
+            ],
+        ];
 
         $helper = new HelperForm();
         $helper->show_toolbar = false;
@@ -179,21 +179,21 @@ class ProductPaymentLogos extends Module
         $helper->submit_action = 'submitStoreConf';
         $helper->currentIndex = $this->context->link->getAdminLink('AdminModules', false) . '&configure=' . $this->name . '&tab_module=' . $this->tab . '&module_name=' . $this->name;
         $helper->token = Tools::getAdminTokenLite('AdminModules');
-        $helper->tpl_vars = array(
+        $helper->tpl_vars = [
             'fields_value' => $this->getConfigFieldsValues(),
             'languages' => $this->context->controller->getLanguages(),
             'id_language' => $this->context->language->id
-        );
+        ];
 
-        return $helper->generateForm(array($fieldsForm));
+        return $helper->generateForm([$fieldsForm]);
     }
 
     public function getConfigFieldsValues()
     {
-        return array(
+        return [
             'PRODUCTPAYMENTLOGOS_IMG' => Tools::getValue('PRODUCTPAYMENTLOGOS_IMG', Configuration::get('PRODUCTPAYMENTLOGOS_IMG')),
             'PRODUCTPAYMENTLOGOS_LINK' => Tools::getValue('PRODUCTPAYMENTLOGOS_LINK', Configuration::get('PRODUCTPAYMENTLOGOS_LINK')),
             'PRODUCTPAYMENTLOGOS_TITLE' => Tools::getValue('PRODUCTPAYMENTLOGOS_TITLE', Configuration::get('PRODUCTPAYMENTLOGOS_TITLE')),
-        );
+        ];
     }
 }
