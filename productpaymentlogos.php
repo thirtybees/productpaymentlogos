@@ -24,8 +24,9 @@
  */
 
 
-if (!defined('_TB_VERSION_'))
+if (!defined('_TB_VERSION_')) {
     exit;
+}
 
 class ProductPaymentLogos extends Module
 {
