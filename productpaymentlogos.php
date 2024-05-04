@@ -131,6 +131,9 @@ class ProductPaymentLogos extends Module
     public function postProcess()
     {
         if (Tools::isSubmit('submitStoreConf')) {
+            Configuration::updateValue('PRODUCTPAYMENTLOGOS_LINK', Tools::getValue('PRODUCTPAYMENTLOGOS_LINK'));
+            Configuration::updateValue('PRODUCTPAYMENTLOGOS_TITLE', Tools::getValue('PRODUCTPAYMENTLOGOS_TITLE'));
+
             $uploadedFile = $_FILES['PRODUCTPAYMENTLOGOS_IMG'] ?? null;
 
             if ($uploadedFile && !empty($uploadedFile['tmp_name'])) {
@@ -157,8 +160,9 @@ class ProductPaymentLogos extends Module
 
                 Configuration::updateValue('PRODUCTPAYMENTLOGOS_IMG', $fileName);
                 $this->_clearCache('productpaymentlogos.tpl');
-                Tools::redirectAdmin('index.php?tab=AdminModules&conf=6&configure=' . $this->name . '&token=' . Tools::getAdminTokenLite('AdminModules'));
             }
+
+            Tools::redirectAdmin('index.php?tab=AdminModules&conf=6&configure=' . $this->name . '&token=' . Tools::getAdminTokenLite('AdminModules'));
         }
 
         return '';
