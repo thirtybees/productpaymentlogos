@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (C) 2017-2019 thirty bees
+ * Copyright (C) 2017-2024 thirty bees
  * Copyright (C) 2007-2016 PrestaShop SA
  *
  * thirty bees is an extension to the PrestaShop software by PrestaShop SA.
